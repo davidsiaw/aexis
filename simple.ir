@@ -1,0 +1,21 @@
+; main() {
+;   a = 2
+;   b = 1
+;   c = a + b
+;   call put c
+; }
+
+start #main
+create   ; create unbound var and push to stack
+assign 2 ; assign 2 var specified on top of stack
+create   ; create unbound var and push to stack
+assign 1 ; assign 1 var specified on top of stack
+create   ; create unbound var and push to stack
+desccall ; start describing a function call
+return   ; set return value to var at top of stack and pop it from the stack
+input    ; set input value to var at top of stack and pop from stack
+input
+push #_intrin_add ; set function value to #_intrin_add and put it on the top of the stack
+push_func         ; push the function described at the top of the stack to the task queue
+finish ; finish function
+

@@ -1,0 +1,81 @@
+
+; function () = main()
+;   c = square(5)
+;   puts(c)
+; end
+;
+; function () = puts(val)
+;   _intrin_putstring(val)
+; end
+;
+; function (b) = square(a)
+;   b = a * a
+; end
+; should result in
+; function (b) = square(a)
+;   b = _intrin_mul(a, a)
+; end
+; 
+;
+;
+
+
+start #main
+desccall ; start describing a function
+create   ; create unbound var and push to stack
+assign 5 ; assign 5 to var specified on top of stack
+input    ; set input value to var at top of stack and pop from stack
+
+create   ; create unbound var and push to stack
+dupl      ; duplicate the top value
+return   ; set return value to var at top of stack and pop it from the stack
+
+push #square ; set function value to #square and put it on the top of the stack
+push_func
+
+desccall  ; start describing another func
+input     ; set input value to var at top of stack and pop from stack
+push #puts ; set function value to #puts and put it on the top of the stack
+push_func
+
+finish ; finish function
+
+
+
+start #puts
+
+desccall ; start describing a function
+create
+push_param 0 ; receive parameter zero and push to stack
+assign_top ; assign value contained in var specified at top of the stack to the value 2nd at top and pop top value
+
+input ; set input value to var at top of stack and pop it from the top of the stack
+
+push #_intrin_putstring ; set function value to #_intrin_putstring and put it on the top of the stack
+push_func
+
+finish; puts
+
+
+
+start #square
+
+desccall ; start describing a function
+create
+push_param 0 ; receive parameter zero and push to stack
+assign_top ; assign value of top of the stack to the value 2nd at top and pop top value
+create
+push_param 0 ; receive parameter zero and push to stack
+assign_top ; assign value of top of the stack to the value 2nd at top and pop top value
+
+push_return 0 ; receive return variable 0 and push to stack
+return ; set return value to var at top of stack and pop it from the stack
+
+input ; set input value to var at top of stack and pop it from the top of the stack
+input ; set input value to var at top of stack and pop it from the top of the stack
+
+push #_intrin_mul ; set function value to #_intrin_mul and put it on the top of the stack
+push_func
+
+finish
+
